@@ -1,0 +1,3 @@
+[submodule "JS-Deobfuscator"]
+	path = JS-Deobfuscator
+	url = https://github.com/PidgeyL/JS-Deobfuscator.git
