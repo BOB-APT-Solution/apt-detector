@@ -13,7 +13,28 @@ def _command_pipeline(command:str) -> int:
         print(e)
         return -2
 
+    return 1
 
+
+def search_signature(js: str) -> bool:
+    signature = [
+        "setcookie",
+        "getcookie",
+        "createxmlhttprequest",
+        "unescape",
+        "document.write",
+        "element.appendChild",
+        "dateObject.toGmtString",
+        "newactivexobject",
+        "document.createelement"
+    ]
+
+    for sig in signature:
+        if sig.upper() in js:
+            return True # yes virus
+
+    return False # no virus
+    
 if __name__ == "__main__":
     usage = "usage: %prog --file=file.hwp"
     parser = OptionParser(usage)
@@ -21,8 +42,16 @@ if __name__ == "__main__":
                       help="bob")
     
     (options, args) = parser.parse_args()
-
+    
     print(options.filename)
 
-    
+    command = _command_pipeline(f"python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename}")
+    print(f"[OBFUSCATE] python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename} ==> return code {command}")
+
+    raw_code = str
+    if command == 1: # success
+        with open(options.filename, 'r') as f:
+            raw_code = f.read().upper()
+
+        print(f"{options.filename} malware result => {search_signature(raw_code)}")
     
