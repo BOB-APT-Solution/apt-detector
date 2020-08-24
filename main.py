@@ -2,23 +2,30 @@ import sys
 import subprocess
 import os
 from optparse import OptionParser
+import sys
 
+ROOT = os.path.dirname(os.path.abspath(__file__))
+TESTS = os.path.join(ROOT, 'testset')
+MODULE_PATH = os.path.join(ROOT, "module/")
+HWP_PARSER_PATH = os.path.join(MODULE_PATH, "hwp-parser")
+PDF_PARSER_PATH = os.path.join(MODULE_PATH, "pdf-analysis-module")
+PYTHON_PATH = os.path.join(ROOT, "venv/bin")
 
-MODULE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "modules/")
-HWP_PARSER_PATH = os.path.join(MODULE_PATH, "hwp-parser/")
-PDF_PARSER_PATH = os.path.join(MODULE_PATH, "pdf-analysis-module/")
-
+def _print_result(file:str, result :bool):
+    print("++++++++++++++++++")
+    print(f"{file} malware result => {result}")
+    print("++++++++++++++++++")
 def _command_pipeline(command:str) -> int:
     try:
-        _ = subprocess.check_output(f'{command}',
+        _ = subprocess.check_call(f'{command}',
             shell=True,
-            stderr=subprocess.STDOUT,
+            stdout=sys.stdout,
         )
     except Exception as e:
         print(e)
         return -2
 
-    return 1
+    return 0
 
 
 def search_signature(js: str) -> bool:
@@ -50,22 +57,23 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
     
     file_name = options.filename
+    pure_file_name = file_name.split('.')[0]
+    #_command_pipeline(f"python {HWP_PARSER_PATH}/hwp-parser.py")
 
-
+    
     # if filename == *.hwp:
         # script_name = extract javascript from hwp and save it as filename.js
     # elif filename == *.xlsm:
         # script_name = do something that extracting vba script and save it as filename.vba
-        
 
-    # if script_name == '*.js':
-        #command = _command_pipeline(f"python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename}")
-        #print(f"[OBFUSCATE] python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename} ==> return code {command}")
+    # pdf extract javascript
 
-        #raw_code = str
-        #if command == 1: # success
-        #    with open(options.filename, 'r') as f:
-        #        raw_code = f.read().upper()
+    if True == True: # .js
+        command = _command_pipeline(f"python {PDF_PARSER_PATH}/main.py --file {os.path.abspath(file_name)}")
+        raw_code = str
+        if command == 0: # success
+            with open(f"{pure_file_name}.js", 'r') as f:
+                raw_code = f.read().upper()
+            
+            _print_result(f"{pure_file_name}.js", search_signature(raw_code))
 
-        #     print(f"{options.filename} malware result => {search_signature(raw_code)}")
-    
