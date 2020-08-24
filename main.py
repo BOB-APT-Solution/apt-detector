@@ -45,13 +45,21 @@ if __name__ == "__main__":
     
     print(options.filename)
 
-    command = _command_pipeline(f"python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename}")
-    print(f"[OBFUSCATE] python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename} ==> return code {command}")
+    
+    # if filename == *.hwp:
+        # script_name = extract javascript from hwp and save it as filename.js
+    # elif filename == *.xlsm:
+        # script_name = do something that extracting vba script and save it as filename.vba
+        
 
-    raw_code = str
-    if command == 1: # success
-        with open(options.filename, 'r') as f:
-            raw_code = f.read().upper()
+    # if script_name == '*.js':
+        #command = _command_pipeline(f"python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename}")
+        #print(f"[OBFUSCATE] python2 JS-Deobfuscator/deobfuscate.py {options.filename} {options.filename} ==> return code {command}")
 
-        print(f"{options.filename} malware result => {search_signature(raw_code)}")
+        #raw_code = str
+        #if command == 1: # success
+        #    with open(options.filename, 'r') as f:
+        #        raw_code = f.read().upper()
+
+        #     print(f"{options.filename} malware result => {search_signature(raw_code)}")
     
