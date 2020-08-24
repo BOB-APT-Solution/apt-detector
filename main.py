@@ -1,7 +1,12 @@
 import sys
 import subprocess
+import os
 from optparse import OptionParser
 
+
+MODULE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "modules/")
+HWP_PARSER_PATH = os.path.join(MODULE_PATH, "hwp-parser/")
+PDF_PARSER_PATH = os.path.join(MODULE_PATH, "pdf-analysis-module/")
 
 def _command_pipeline(command:str) -> int:
     try:
@@ -36,6 +41,7 @@ def search_signature(js: str) -> bool:
     return False # no virus
     
 if __name__ == "__main__":
+    
     usage = "usage: %prog --file=file.hwp"
     parser = OptionParser(usage)
     parser.add_option("-f", "--file", dest="filename",
@@ -43,9 +49,9 @@ if __name__ == "__main__":
     
     (options, args) = parser.parse_args()
     
-    print(options.filename)
+    file_name = options.filename
 
-    
+
     # if filename == *.hwp:
         # script_name = extract javascript from hwp and save it as filename.js
     # elif filename == *.xlsm:
