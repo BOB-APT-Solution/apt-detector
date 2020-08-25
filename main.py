@@ -60,10 +60,9 @@ if __name__ == "__main__":
     pure_file_name = file_name.split('.')[0]
     abs_file_name = os.path.abspath(file_name)
 
-    _command_pipeline(f"python {HWP_PARSER_PATH}/hwp-parser.py {abs_file_name}")
 
     # if filename == *.hwp:
-        # script_name = extract javascript from hwp and save it as filename.js
+        # _command_pipeline(f"python {HWP_PARSER_PATH}/hwp-parser.py {abs_file_name}")
     # elif filename == *.xlsm:
         # script_name = do something that extracting vba script and save it as filename.vba
     # elif filename == *.pdf:
