@@ -15,7 +15,7 @@ else:
 def Extract_VBA(file_name : str)->str:
   result = ""  
   # VBA 퍼져 온 
-  vbaparser = VBA_Parser(sys.argv[1])
+  vbaparser = VBA_Parser(file_name)
   # 매크로 검사
   if not vbaparser.detect_vba_macros():
    print ("{} hasn't any vba codes".format(file_name))
